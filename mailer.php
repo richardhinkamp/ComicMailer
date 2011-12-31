@@ -18,7 +18,7 @@ $col = new Collection();
 $col->loadYaml( __DIR__ . '/comics.yaml' );
 $col->fetchAll();
 $new = $col->getAllNew();
-if ( !empty( $new ) )
+if ( $new->count() > 0 )
 {
     $txt = $html = array();
     foreach( $new as $entry )
