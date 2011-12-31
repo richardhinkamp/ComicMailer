@@ -8,22 +8,7 @@
  * @copyright Copyright 2011 Richard Hinkamp
  */
 
-require_once( __DIR__ . '/vendor/Symfony/Component/ClassLoader/UniversalClassLoader.php' );
-
-use Symfony\Component\ClassLoader\UniversalClassLoader;
-
-$loader = new UniversalClassLoader();
-$loader->registerNamespaces(array(
-    'ComicMail' => __DIR__,
-    //'Doctrine' => __DIR__.'/vendor',
-    'Symfony' => __DIR__.'/vendor',
-    //'Silex' => __DIR__.'/vendor',
-    //'Twig' => __DIR__.'/vendor',
-));
-//$loader->registerPrefixes(array(
-//    'Pimple' => __DIR__.'/vendor/Pimple',
-//));
-$loader->register();
+require_once( __DIR__ . '/bootstrap.php' );
 
 require_once( __DIR__.'/vendor/Swift/swift_required.php' );
 
