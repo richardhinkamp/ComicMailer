@@ -1,0 +1,11 @@
+dilbert:
+    url: 'http://www.dilbert.com/'
+    filter: '.STR_Image > a > img'
+    prefix: 'http://www.dilbert.com'
+userfriendly:
+    url: 'http://www.userfriendly.org/'
+    filter: 'img[src^="http://www.userfriendly.org/cartoons/archives/"]'
+reallifecomics:
+    url: 'http://www.reallifecomics.com/'
+    filter: 'div.comic_image img'
+    prefix: 'http://www.reallifecomics.com'
