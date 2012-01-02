@@ -44,9 +44,13 @@ class Entry
 
     public function fetch()
     {
-        $crawler = new \Symfony\Component\DomCrawler\Crawler();
-        $crawler->addContent( file_get_contents( $this->url ) );
-        $this->imageUrl = $this->prefix . $crawler->filter( $this->filter )->attr( 'src' );
+        $html = @file_get_contents( $this->url );
+        if ( $html )
+        {
+            $crawler = new \Symfony\Component\DomCrawler\Crawler();
+            $crawler->addContent( $html );
+            $this->imageUrl = $this->prefix . $crawler->filter( $this->filter )->attr( 'src' );
+        }
     }
 
     public function getId()
