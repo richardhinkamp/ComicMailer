@@ -49,7 +49,11 @@ class Entry
         {
             $crawler = new \Symfony\Component\DomCrawler\Crawler();
             $crawler->addContent( $html );
-            $this->imageUrl = $this->prefix . $crawler->filter( $this->filter )->attr( 'src' );
+            $f = $crawler->filter( $this->filter );
+            if ( $f->count() )
+            {
+                $this->imageUrl = $this->prefix . $f->attr( 'src' );
+            }
         }
     }
 
