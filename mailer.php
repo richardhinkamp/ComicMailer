@@ -10,8 +10,6 @@
 
 require_once( __DIR__ . '/bootstrap.php' );
 
-require_once( __DIR__.'/vendor/Swift/swift_required.php' );
-
 use ComicMailer\Comic\Collection;
 
 $col = new Collection();

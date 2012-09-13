@@ -1,2 +1,4 @@
 comics.yaml
 .idea
+vendor
+composer.lock
