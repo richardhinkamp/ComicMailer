@@ -4,12 +4,11 @@
  *
  * @package ComicMailer
  * @author Richard Hinkamp <richard@hinkamp.nl>
- * @copyright Copyright 2011 Richard Hinkamp
+ * @copyright Copyright 2011-2012 Richard Hinkamp
  */
 
 // timezone, default always amsterdam
-if ( function_exists( 'date_default_timezone_set' ) )
-{
+if (function_exists( 'date_default_timezone_set' )) {
     date_default_timezone_set( 'Europe/Amsterdam' );
 }
 

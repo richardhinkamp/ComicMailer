@@ -16,31 +16,28 @@ $col = new Collection();
 $col->loadYaml( __DIR__ . '/comics.yaml' );
 $col->fetchAll();
 $new = $col->getAllNew();
-if ( $new->count() > 0 )
-{
+if ($new->count() > 0) {
     $txt = $html = array();
-    foreach( $new as $entry )
-    {
+    foreach ( $new as $entry ) {
         /** @var $entry \ComicMailer\Comic\Entry */
         $txt[] = $entry->getId() . ': ' . $entry->getImageUrl();
         $html[] = '<img src="' . $entry->getImageUrl() . '" alt="' . $entry->getId() . '">';
     }
 
     $message = Swift_Message::newInstance()
-      ->setSubject( 'Comics' )
-      ->setFrom( array( 'richard@hinkamp.nl' => 'Comic Mailer' ) )
-      ->setTo( array( 'richard@hinkamp.nl' => 'Richard Hinkamp' ) )
-      ->setBody( implode( "\n", $txt ) )
-      ->addPart( implode( "<br><br>\n", $html ), 'text/html' );
+        ->setSubject( 'Comics' )
+        ->setFrom( array( 'richard@hinkamp.nl' => 'Comic Mailer' ) )
+        ->setTo( array( 'richard@hinkamp.nl' => 'Richard Hinkamp' ) )
+        ->setBody( implode( "\n", $txt ) )
+        ->addPart( implode( "<br><br>\n", $html ), 'text/html' );
 
     $transport = Swift_SmtpTransport::newInstance( 'smtp.googlemail.com', 465, 'ssl' )
-      ->setUsername( 'richardhinkamp.prive@gmail.com' )
-      ->setPassword( 'resper93' );
+        ->setUsername( 'richardhinkamp.prive@gmail.com' )
+        ->setPassword( 'resper93' );
 
     $mailer = Swift_Mailer::newInstance( $transport );
 
-    if ( $mailer->send( $message ) )
-    {
+    if ($mailer->send( $message )) {
         $col->saveYaml( __DIR__ . '/comics.yaml' );
     }
 }

@@ -3,29 +3,51 @@
  * Comics definition
  *
  * @package ComicMailer
- * @version $Id$
  * @author Richard Hinkamp <richard@hinkamp.nl>
- * @copyright Copyright 2011 Richard Hinkamp
+ * @copyright Copyright 2011-2012 Richard Hinkamp
  */
 
 namespace ComicMailer\Comic;
 
+/**
+ * Comics definition
+ */
 class Entry
 {
+    /**
+     * @var int
+     */
     protected $id;
+    /**
+     * @var string
+     */
     protected $url;
+    /**
+     * @var string
+     */
     protected $filter;
+    /**
+     * @var string
+     */
     protected $prefix;
+    /**
+     * @var string
+     */
     protected $imageUrl;
+    /**
+     * @var string
+     */
     protected $lastUrl;
 
-    public function __construct( $id, $params )
+    /**
+     * @param int $id
+     * @param array $params
+     */
+    public function __construct( $id, array $params )
     {
         $this->id = $id;
-        foreach( $params as $field => $value )
-        {
-            switch( $field )
-            {
+        foreach ( $params as $field => $value ) {
+            switch ($field) {
                 case 'url':
                     $this->url = $value;
                     break;
@@ -42,49 +64,61 @@ class Entry
         }
     }
 
+    /**
+     * Fetch this comic
+     */
     public function fetch()
     {
         $html = @file_get_contents( $this->url );
-        if ( $html )
-        {
+        if ($html) {
             $crawler = new \Symfony\Component\DomCrawler\Crawler();
             $crawler->addContent( $html );
             $f = $crawler->filter( $this->filter );
-            if ( $f->count() )
-            {
+            if ($f->count()) {
                 $this->imageUrl = $this->prefix . $f->attr( 'src' );
             }
         }
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * Get array for saving in YAML
+     *
+     * @return array
+     */
     public function getYamlArray()
     {
         $array = array( 'url' => $this->url, 'filter' => $this->filter );
-        if ( $this->prefix )
-        {
+        if ($this->prefix) {
             $array['prefix'] = $this->prefix;
         }
-        if ( $this->lastUrl )
-        {
+        if ($this->lastUrl) {
             $array['lastUrl'] = $this->lastUrl;
         }
-        if ( $this->imageUrl )
-        {
+        if ($this->imageUrl) {
             $array['lastUrl'] = $this->imageUrl;
         }
         return $array;
     }
 
+    /**
+     * @return string
+     */
     public function getImageUrl()
     {
         return $this->imageUrl;
     }
 
+    /**
+     * @return bool
+     */
     public function isNew()
     {
         return $this->imageUrl && $this->imageUrl != $this->lastUrl;
