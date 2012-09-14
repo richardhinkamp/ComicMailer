@@ -24,16 +24,17 @@ if ($new->count() > 0) {
         $html[] = '<img src="' . $entry->getImageUrl() . '" alt="' . $entry->getId() . '">';
     }
 
-    $message = Swift_Message::newInstance()
-        ->setSubject( 'Comics' )
+    /** @var $message Swift_Message */
+    $message = Swift_Message::newInstance();
+    $message->setSubject( 'Comics' )
         ->setFrom( array( 'richard@hinkamp.nl' => 'Comic Mailer' ) )
         ->setTo( array( 'richard@hinkamp.nl' => 'Richard Hinkamp' ) )
         ->setBody( implode( "\n", $txt ) )
         ->addPart( implode( "<br><br>\n", $html ), 'text/html' );
 
     $transport = Swift_SmtpTransport::newInstance( 'smtp.googlemail.com', 465, 'ssl' )
-        ->setUsername( 'richardhinkamp.prive@gmail.com' )
-        ->setPassword( 'resper93' );
+        ->setUsername( 'richardhinkamp.prive@gmail.com' ) // TODO remove
+        ->setPassword( 'resper93' ); // TODO remove
 
     $mailer = Swift_Mailer::newInstance( $transport );
 
