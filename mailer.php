@@ -24,17 +24,21 @@ if ($new->count() > 0) {
         $html[] = '<img src="' . $entry->getImageUrl() . '" alt="' . $entry->getId() . '">';
     }
 
+    $yaml = new \Symfony\Component\Yaml\Parser();
+    $settings = $yaml->parse( file_get_contents( __DIR__ . '/settings.yaml' ) );
+
     /** @var $message Swift_Message */
     $message = Swift_Message::newInstance();
     $message->setSubject( 'Comics' )
-        ->setFrom( array( 'richard@hinkamp.nl' => 'Comic Mailer' ) )
-        ->setTo( array( 'richard@hinkamp.nl' => 'Richard Hinkamp' ) )
+        ->setFrom( array( $settings['mail']['from']['email'] => $settings['mail']['from']['name'] ) )
+        ->setTo( array( $settings['mail']['to']['email'] => $settings['mail']['to']['name'] ) )
         ->setBody( implode( "\n", $txt ) )
         ->addPart( implode( "<br><br>\n", $html ), 'text/html' );
 
-    $transport = Swift_SmtpTransport::newInstance( 'smtp.googlemail.com', 465, 'ssl' )
-        ->setUsername( 'richardhinkamp.prive@gmail.com' ) // TODO remove
-        ->setPassword( 'resper93' ); // TODO remove
+    $transport = Swift_SmtpTransport::newInstance(
+        $settings['mail']['smtp']['host'], $settings['mail']['smtp']['port'], $settings['mail']['smtp']['security'] );
+    $transport->setUsername( $settings['mail']['smtp']['username'] );
+    $transport->setPassword( $settings['mail']['smtp']['password'] );
 
     $mailer = Swift_Mailer::newInstance( $transport );
 

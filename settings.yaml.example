@@ -1,0 +1,13 @@
+mail:
+  from:
+    email: user@host.ext
+    name: Comic Mailer
+  to:
+    email: user@host.ext
+    name: John Doe
+  smtp:
+    host: smtp.googlemail.com
+    port: 465
+    security: ssl
+    username: someuser@gmail.com
+    password: somepassword
