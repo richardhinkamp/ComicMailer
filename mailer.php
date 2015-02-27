@@ -37,8 +37,10 @@ if ($new->count() > 0) {
 
     $transport = Swift_SmtpTransport::newInstance(
         $settings['mail']['smtp']['host'], $settings['mail']['smtp']['port'], $settings['mail']['smtp']['security'] );
-    $transport->setUsername( $settings['mail']['smtp']['username'] );
-    $transport->setPassword( $settings['mail']['smtp']['password'] );
+    if (isset($settings['mail']['smtp']['username']) && isset($settings['mail']['smtp']['password'])) {
+        $transport->setUsername( $settings['mail']['smtp']['username'] );
+        $transport->setPassword( $settings['mail']['smtp']['password'] );
+    }
 
     $mailer = Swift_Mailer::newInstance( $transport );
 
