@@ -37,6 +37,10 @@ class Entry
     /**
      * @var string
      */
+    protected $attr = 'src';
+    /**
+     * @var string
+     */
     protected $lastUrl;
 
     /**
@@ -57,6 +61,9 @@ class Entry
                 case 'prefix':
                     $this->prefix = $value;
                     break;
+                case 'attr':
+                    $this->attr = $value;
+                    break;
                 case 'lastUrl':
                     $this->lastUrl = $value;
                     break;
@@ -75,7 +82,7 @@ class Entry
             $crawler->addContent( $html );
             $f = $crawler->filter( $this->filter );
             if ($f->count()) {
-                $this->imageUrl = $this->prefix . $f->attr( 'src' );
+                $this->imageUrl = $this->prefix . $f->attr( $this->attr );
             }
         }
     }
