@@ -106,6 +106,9 @@ class Entry
         if ($this->prefix) {
             $array['prefix'] = $this->prefix;
         }
+        if ($this->attr && $this->attr != 'src') {
+            $array['attr'] = $this->attr;
+        }
         if ($this->lastUrl) {
             $array['lastUrl'] = $this->lastUrl;
         }
