@@ -21,7 +21,7 @@ if ($new->count() > 0) {
     foreach ( $new as $entry ) {
         /** @var $entry \ComicMailer\Comic\Entry */
         $txt[] = $entry->getId() . ': ' . $entry->getImageUrl();
-        $html[] = '<img src="' . $entry->getImageUrl() . '" alt="' . $entry->getId() . '">';
+        $html[] = '<img src="' . $entry->getImageUrl() . '" alt="' . $entry->getId() . '" style="max-width: 100%">';
     }
 
     $yaml = new \Symfony\Component\Yaml\Parser();
